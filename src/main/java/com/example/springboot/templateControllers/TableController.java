@@ -13,23 +13,30 @@ import java.util.List;
 // 2. Give the name of the template that expects that data.
 @Controller
 public class TableController {
-    @GetMapping("/table/{table_size}")
-    public String departmentsHTML(@PathVariable final int table_size, final Model model) {
+    private List<List<Integer>> getRows(final int tableSize) {
         final List<List<Integer>> rows = new ArrayList<>();
-        for (int i = 0; i < table_size; i++) {
+        for (int i = 0; i < tableSize; i++) {
             final List<Integer> row = new ArrayList<>();
             for (int j = 0; j < i; j++) {
                 row.add(j);
             }
             rows.add(row);
         }
-        final List<Integer> captions = new ArrayList<>();
-        for (int i = 0; i < table_size; i++) {
-            captions.add(i);
-        }
+        return rows;
+    }
 
-        model.addAttribute("rows", rows);
-        model.addAttribute("captions", captions);
+    private List<String> getCaptions(final int tableSize) {
+        final List<String> captions = new ArrayList<>();
+        for (int i = 0; i < tableSize; i++) {
+            captions.add("#" + i);
+        }
+        return captions;
+    }
+
+    @GetMapping("/table/{table_size}")
+    public String departmentsHTML(@PathVariable final int table_size, final Model model) {
+        model.addAttribute("rows", getRows(table_size);
+        model.addAttribute("captions", getCaptions(table_size);
         return "table";
     }
 }
