@@ -1,0 +1,21 @@
+<div th:switch="${rows}">
+    <h2 th:case="null">No rows yet!</h2>
+    <div th:case="*">
+        <table border="1">
+            <thead>
+            <tr>
+                <td th:each="caption : ${captions}">
+                    <span th:text="${caption}"></span>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="row : ${rows}">
+                <td th:each="field : ${row}">
+                    <span th:text="${field}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
